@@ -5,18 +5,23 @@ const login=async(req=request,res=response)=>{
     try {
         const usuario = await Usuario.findOne({email});
         if (!usuario) {
-            res.status(400).json({
+            return res.json({
                 msg:"Correo o password incorrecto!"
             });  
         }
         if(!usuario.estado){
-            res.status(400).json({
+            return res.json({
                 msg:"Correo o password incorrecto | usuario inactivo"
             });
         }
-        if (!bcrypt.compareSync(password,usuario.password)) {
-            res.status(400).json({
-                msg:"Correo o password incorrecto!"
+        
+
+    let validPassword =bcrypt.compareSync(password,usuario.password);
+    console.log(password);
+    console.log(validPassword);
+        if (!validPassword) {
+            return res.json({
+                msg:"Correo o password incorrectos!"
             }); 
         }
         res.json({
@@ -25,7 +30,8 @@ const login=async(req=request,res=response)=>{
         });
 
     } catch (error) {
-       return res.status(500).json({
+        console.log(error);
+       return res.json({
         msg:"Contactar al administrador"
        }); 
     }
