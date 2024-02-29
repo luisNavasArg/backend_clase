@@ -7,7 +7,7 @@ class Server{
         this.port= 8080;
         this.auhtPath="/api/auth";
         this.usersPath="/api/users";
-        // this.productsPath="/api/products";
+        this.productsPath="/api/products";
         // this.categoriesPath="/api/categories";
         this.conectarDb();
         this.middlewares();
@@ -30,7 +30,7 @@ class Server{
     routes(){
         this.app.use(this.auhtPath,require("../routes/auth"));
         this.app.use(this.usersPath,require("../routes/users"));
-        // this.app.use(this.productsPath,require("../routes/products"));
+        this.app.use(this.productsPath,require("../routes/products"));
         // this.app.use(this.categoriesPath,require("../routes/categories"));
     }
     listen(){

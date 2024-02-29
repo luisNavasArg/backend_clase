@@ -1,5 +1,6 @@
 const Usuario = require("../models/usuario");
 const bcrypt = require("bcrypt");
+const { generarJwt }=require("../helpers/generar-jwt");
 const login=async(req=request,res=response)=>{
     const {email,password}=req.body;
     try {
@@ -24,9 +25,12 @@ const login=async(req=request,res=response)=>{
                 msg:"Correo o password incorrectos!"
             }); 
         }
-        res.json({
+        //generamos el token
+        const token = await generarJwt(usuario.uid);
+        return res.json({
             msg:"Login Ok",
-            usuario
+            usuario,
+            token
         });
 
     } catch (error) {
