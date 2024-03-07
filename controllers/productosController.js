@@ -7,14 +7,21 @@ const getProducts=async(req,res)=>{
  const addProduct=async(req,res)=>{
     const {name,description,price,src,category}=req.body;
     const producto ={name,description,price,src,category};
-    const newProd=new Producto(producto);
-    await newProd.save();
-    res.json({msg:"Producto creado con éxito",producto:newProd});
+    const duplicacion = await Producto.find({description:producto.description});
+   if(duplicacion.length!=0){
+      return res.json({msg:"Está duplicado la descripción"});
+   }else{
+      const newProd=new Producto(producto);
+      await newProd.save();
+      res.json({msg:"Producto creado con éxito",producto:newProd});
+   }  
+    
  }
  const updateProduc=async(req,res)=>{
     const {id} =req.params;
     const {name,description,price,src,category}=req.body;
     const producto = {name,description,price,src,category};
+    console.log(producto);
     const productUpdate=await Producto.findByIdAndUpdate(id,producto,{new:true});
     res.status(201).json({
         productUpdate,

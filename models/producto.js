@@ -6,7 +6,7 @@ const ProductoSchema=Schema({
     },
     description:{
         type:String,
-        required:[true,"Este campo es obligatorio"],
+        required:[true,"Este campo es obligatorio"]
     },
     price:{
         type:Number,
