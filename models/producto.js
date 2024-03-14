@@ -19,4 +19,4 @@ const ProductoSchema=Schema({
         type:String
     }
 });
-module.exports=model("Producto",ProductoSchema);
+module.exports=model("ProductoRoll70i",ProductoSchema);
