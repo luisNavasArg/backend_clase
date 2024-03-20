@@ -13,7 +13,7 @@ const getProducts=async(req,res)=>{
    }else{
       const newProd=new Producto(producto);
       await newProd.save();
-      res.json({msg:"Producto creado con éxito",producto:newProd});
+      res.status(201).json({msg:"Producto creado con éxito",producto:newProd});
    }  
     
  }
@@ -21,7 +21,7 @@ const getProducts=async(req,res)=>{
     const {id} =req.params;
     const {name,description,price,src,category}=req.body;
     const producto = {name,description,price,src,category};
-    console.log(producto);
+  
     const productUpdate=await Producto.findByIdAndUpdate(id,producto,{new:true});
     res.status(201).json({
         productUpdate,
@@ -31,7 +31,7 @@ const getProducts=async(req,res)=>{
  const deleteProduct=async(req,res)=>{
     const {id}=req.params;
     await Producto.deleteOne({_id:id});
-    res.json({msg:id})
+    res.status(200).json({msg:id})
  }
  module.exports={
     getProducts,
