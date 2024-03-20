@@ -19,4 +19,9 @@ const ProductoSchema=Schema({
         type:String
     }
 });
+ProductoSchema.methods.toJSON=function () {
+    const {__v, _id , ...producto}=this.toObject();
+    producto.id=_id;
+    return producto;
+}
 module.exports=model("ProductoRoll70i",ProductoSchema);
