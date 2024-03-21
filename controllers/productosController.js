@@ -33,8 +33,14 @@ const getProducts=async(req,res)=>{
     await Producto.deleteOne({_id:id});
     res.status(200).json({msg:id})
  }
+ const getOneProduct=async(req,res)=>{
+   const {id}=req.params;
+   const prod = await Producto.findById(id);
+   res.status(200).json({producto:prod});
+ }
  module.exports={
     getProducts,
+    getOneProduct,
     addProduct,
     updateProduc,
     deleteProduct
